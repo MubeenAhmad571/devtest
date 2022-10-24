@@ -1,0 +1,20 @@
+name: update-branch
+on: push
+jobs:
+  update:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Update Git Branch devuk
+        run: |
+          git config user.name "Update Branch"
+          git config user.email github-actions@github.com
+          git checkout devuk
+          git merge master --no-edit -m "Merged main branch"  
+      - name: Push the updated branch devuk
+        run: |
+          git push origin devuk
